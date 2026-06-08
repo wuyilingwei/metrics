@@ -7,6 +7,7 @@ WORKDIR /metrics
 
 # Use vendored prebuilt libvips for sharp (avoids flaky GitHub releases download)
 ENV npm_config_sharp_libvips_local_prebuilds=/metrics/vendor/libvips
+ENV SHARP_IGNORE_GLOBAL_LIBVIPS=1
 
 # Setup
 RUN chmod +x /metrics/source/app/action/index.mjs \
@@ -19,7 +20,7 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && apt-get update \
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 libx11-xcb1 libxtst6 lsb-release --no-install-recommends \
   # Install deno for miscellaneous scripts
-  && apt-get install -y curl unzip libvips-dev libglib2.0-dev \
+  && apt-get install -y curl unzip \
   && curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=/usr/local sh \
   # Install ruby to support github licensed gem
   && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev \
