@@ -5,6 +5,9 @@ FROM node:20-bookworm-slim
 COPY . /metrics
 WORKDIR /metrics
 
+# Use vendored prebuilt libvips for sharp (avoids flaky GitHub releases download)
+ENV npm_config_sharp_libvips_local_prebuilds=/metrics/vendor/libvips
+
 # Setup
 RUN chmod +x /metrics/source/app/action/index.mjs \
   # Install latest chrome dev package, fonts to support major charsets and skip chromium download on puppeteer install
